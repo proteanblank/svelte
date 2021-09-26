@@ -651,6 +651,19 @@ Elements with the `contenteditable` attribute support `innerHTML` and `textConte
 <div contenteditable="true" bind:innerHTML={html}></div>
 ```
 
+---
+
+`<details>` elements support binding to the `open` property.
+
+```sv
+<details bind:open={isOpen}>
+	<summary>Details</summary>
+	<p>
+		Something small enough to escape casual notice.
+	</p>
+</details>
+```
+
 ##### Media element bindings
 
 ---
@@ -963,20 +976,22 @@ A custom transition function can also return a `tick` function, which is called 
 <script>
 	export let visible = false;
 
-	function typewriter(node, { speed = 50 }) {
+	function typewriter(node, { speed = 1 }) {
 		const valid = (
 			node.childNodes.length === 1 &&
 			node.childNodes[0].nodeType === Node.TEXT_NODE
 		);
 
-		if (!valid) return {};
+		if (!valid) {
+			throw new Error(`This transition only works on elements with a single text node child`);
+		}
 
 		const text = node.textContent;
-		const duration = text.length * speed;
+		const duration = text.length / (speed * 0.01);
 
 		return {
 			duration,
-			tick: (t, u) => {
+			tick: t => {
 				const i = ~~(text.length * t);
 				node.textContent = text.slice(0, i);
 			}
@@ -985,7 +1000,7 @@ A custom transition function can also return a `tick` function, which is called 
 </script>
 
 {#if visible}
-	<p in:typewriter="{{ speed: 20 }}">
+	<p in:typewriter="{{ speed: 1 }}">
 		The quick brown fox jumps over the lazy dog
 	</p>
 {/if}
@@ -1426,7 +1441,7 @@ In order to place content in a slot without using a wrapper element, you can use
 
 ---
 
-`$$slots` is an object whose keys are the names of the slots passed into the component by the parent. If the parent does not pass in a slot with a particular name, that name will not be a present in `$$slots`. This allows components to render a slot (and other elements, like wrappers for styling) only if the parent provides it.
+`$$slots` is an object whose keys are the names of the slots passed into the component by the parent. If the parent does not pass in a slot with a particular name, that name will not be present in `$$slots`. This allows components to render a slot (and other elements, like wrappers for styling) only if the parent provides it.
 
 Note that explicitly passing in an empty named slot will add that slot's name to `$$slots`. For example, if a parent passes `<div slot="title" />` to a child component, `$$slots.title` will be truthy within the child.
 

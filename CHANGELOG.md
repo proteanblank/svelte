@@ -1,5 +1,40 @@
 # Svelte changelog
 
+## 3.43.0
+
+* Use export map to expose no-op versions of lifecycle functions for SSR ([#6743](https://github.com/sveltejs/svelte/pull/6743))
+* Prefer `context` passed to component constructor, even when running synchronously in another component ([#6753](https://github.com/sveltejs/svelte/issues/6753))
+* Handle preprocessors that return empty sourcemaps ([#6757](https://github.com/sveltejs/svelte/pull/6757))
+
+## 3.42.6
+
+* Hide private preprocess typings ([#6622](https://github.com/sveltejs/svelte/issues/6622))
+* Fix reactive function in `{:else if}` expression not being properly re-run ([#6727](https://github.com/sveltejs/svelte/pull/6727))
+
+## 3.42.5
+
+* In `draw` transition, account for `stroke-linecap` in determining length ([#4540](https://github.com/sveltejs/svelte/issues/4540))
+* Fix regression with destructuring assignments with default values ([#6699](https://github.com/sveltejs/svelte/issues/6699))
+
+## 3.42.4
+
+* Only apply optimized `src` attribute handling when in an `html` namespace ([#6575](https://github.com/sveltejs/svelte/issues/6575))
+* Fix styles for transitions and animations being attached to the wrong `document` in `<iframe>`s ([#6637](https://github.com/sveltejs/svelte/issues/6637))
+* Fix `<select>` with a `{...spread}` attribute that didn't provide a `value` key getting its value improperly unset ([#6675](https://github.com/sveltejs/svelte/issues/6675))
+
+## 3.42.3
+
+* Add `BigInt` as a known global ([#6671](https://github.com/sveltejs/svelte/pull/6671))
+* Fix regression where `onDestroy` in `svelte/ssr` was improperly a no-op ([#6676](https://github.com/sveltejs/svelte/issues/6676))
+
+## 3.42.2
+
+* Collapse whitespace in `class` and `style` attributes ([#6004](https://github.com/sveltejs/svelte/issues/6004))
+* Deselect all `<option>`s in a `<select>` where the bound `value` doesn't match any of them ([#6126](https://github.com/sveltejs/svelte/issues/6126))
+* In hydrated components, only rely on helpers for creating the types of elements present in the component ([#6555](https://github.com/sveltejs/svelte/issues/6555))
+* Add `HTMLElement` and `SVGElement` as known globals ([#6643](https://github.com/sveltejs/svelte/issues/6643))
+* Account for scaling in `flip` animations ([#6657](https://github.com/sveltejs/svelte/issues/6657))
+
 ## 3.42.1
 
 * Fix regression with reordering keyed `{#each}` blocks when compiling with hydration enabled ([#6561](https://github.com/sveltejs/svelte/issues/6561))
